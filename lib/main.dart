@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,34 +16,105 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: .fromSeed(
+          seedColor: Colors.deepPurple,
+        ),
       ),
-      home:HomePage(),
+      home: HomePage(),
     );
   }
 }
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Assignment13"),
+      ),
+      body: Container(
+        width: double.infinity,
+        color: Colors.grey,
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.center,
+          mainAxisAlignment:
+              MainAxisAlignment.center,
+          children: [
+            FilledButton(
+              onPressed: () {
+                Logger.info(
+                  "This is an info message",
+                );
+              },
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.black,
+              ),
+
+              child: Text("Info"),
+            ),
+            FilledButton(
+              onPressed: () {
+                Logger.sucess(
+                  "This is a success message",
+                );
+              },
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
+
+              child: Text("Success"),
+            ),
+            FilledButton(
+              onPressed: () {
+                Logger.warning(
+                  "This is a warning message",
+                );
+              },
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.yellow,
+              ),
+
+              child: Text("Warning"),
+            ),
+            FilledButton(
+              onPressed: () {
+                Logger.error(
+                  "This is an error message",
+                );
+              },
+              style: FilledButton.styleFrom(
+                backgroundColor: Colors.red,
+              ),
+
+              child: Text("Error"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
+class Logger {
+  static void info(String message) {
+    if (kDebugMode) {
+      debugPrint('\x1B[30m$message\x1B[0m');
+    }
+  }
 
+  static void sucess(String message) {
+    debugPrint("\x1B[32m$message\x1B[0m");
+  }
+
+  static void warning(String message) {
+    debugPrint("\x1B[33m$message\x1B[0m");
+  }
+
+  static void error(String message) {
+    debugPrint("\x1B[31m$message\x1B[0m");
+  }
+}
